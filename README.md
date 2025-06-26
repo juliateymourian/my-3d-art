@@ -1,8 +1,45 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## OpenTelemetry Instrumentation
+
+This project has been configured with OpenTelemetry auto-instrumentation for comprehensive observability:
+
+### Features
+- **Automatic web instrumentation** for client-side tracing
+- **Structured logging** with OTLP export to Observe
+- **Custom logger utility** for application-specific events
+- **Next.js framework instrumentation**
+
+### Configuration
+- `otel.js` - Main OpenTelemetry configuration
+- `instrumentation.ts` - Next.js instrumentation hook
+- `lib/logger.js` - Custom logging utility
+- `pages/_app.js` - Application initialization with OTEL
+
+### Logs Export
+Logs are automatically sent to: `https://191369360817.collect.observe-eng.com/v2/otel/v1/logs`
+
+### Usage
+Use the custom logger in your components:
+```javascript
+import { log } from '../lib/logger';
+
+// Info logging
+log.info('User action', { action: 'click', component: 'button' });
+
+// Error logging
+log.error('API error', error, { endpoint: '/api/data' });
+```
+
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
@@ -16,9 +53,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 ## Learn More
 
